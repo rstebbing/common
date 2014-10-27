@@ -3,7 +3,7 @@
 #define MATH_LINALG_H
 
 // Includes
-#include <vector>
+#include <iterator>
 
 #include "Eigen/Dense"
 #include "Eigen/Eigen"
