@@ -46,13 +46,11 @@ struct ConstMatrixMap {
   typedef Eigen::Map<const typename Matrix<TElem>::Type > Type;
 };
 
-
 // ConstVectorMap
 template <typename TElem>
 struct ConstVectorMap {
   typedef Eigen::Map<const typename Vector<TElem>::Type > Type;
 };
-
 
 // MatrixArrayAdapter
 template <typename TM>
@@ -62,30 +60,30 @@ class MatrixArrayAdapter {
   typedef typename TM::Index Index;
 
   MatrixArrayAdapter(TM * m)
-    : _m(m)
+    : m_(m)
   {}
 
   inline auto size() const -> decltype(((TM *)nullptr)->cols()) {
-    return _m->cols();
+    return m_->cols();
   }
 
   inline value_type operator[](Index i) const {
-    return _m->col(i);
+    return m_->col(i);
   }
 
   // TODO "Upgrade" `iterator` to RandomAccessIterator.
   class iterator : public std::iterator<std::input_iterator_tag, int, int> {
    public:
     iterator(int i, TM * m)
-      : _i(i), _m(m)
+      : i_(i), m_(m)
     {}
 
     iterator(const iterator & r)
-      : _i(r._i), _m(r._m)
+      : i_(r.i_), m_(r.m_)
     {}
 
     inline iterator & operator++() {
-      ++_i;
+      ++i_;
       return *this;
     }
 
@@ -96,7 +94,7 @@ class MatrixArrayAdapter {
     }
 
     inline bool operator==(const iterator & r) const {
-      return (_m == r._m) && (_i == r._i);
+      return (m_ == r.m_) && (i_ == r.i_);
     }
 
     inline bool operator!=(const iterator & r) const {
@@ -104,24 +102,24 @@ class MatrixArrayAdapter {
     }
 
     inline auto operator*() -> decltype(((TM *)nullptr)->col(0)) {
-      return _m->col(_i);
+      return m_->col(i_);
     }
 
    private:
-    int _i;
-    TM * _m;
+    int i_;
+    TM * m_;
   };
 
   iterator begin() const {
-    return iterator(0, _m);
+    return iterator(0, m_);
   }
 
   iterator end() const {
-    return iterator(_m->cols(), _m);
+    return iterator(m_->cols(), m_);
   }
 
 protected:
-  TM * _m;
+  TM * m_;
 };
 
 // CSRMatrixMap
