@@ -17,8 +17,7 @@ namespace linalg_python {
 // PyArrayObject_to_MatrixMap
 template <typename TElem>
 std::unique_ptr<typename linalg::MatrixMap<TElem>::Type>
-PyArrayObject_to_MatrixMap(PyArrayObject * npy_A)
-{
+PyArrayObject_to_MatrixMap(PyArrayObject * npy_A) {
   assert(PyArray_NDIM(npy_A) == 2);
   assert(PyArray_ISFORTRAN(npy_A));
   typedef typename linalg::MatrixMap<TElem>::Type MatrixMap;
@@ -32,8 +31,7 @@ PyArrayObject_to_MatrixMap(PyArrayObject * npy_A)
 // PyArrayObject_to_VectorMap
 template <typename TElem>
 std::unique_ptr<typename linalg::VectorMap<TElem>::Type>
-PyArrayObject_to_VectorMap(PyArrayObject * npy_A)
-{
+PyArrayObject_to_VectorMap(PyArrayObject * npy_A) {
   assert(PyArray_NDIM(npy_A) == 1);
   assert(PyArray_ISCONTIGUOUS(npy_A));
   typedef typename linalg::VectorMap<TElem>::Type VectorMap;
@@ -46,14 +44,12 @@ PyArrayObject_to_VectorMap(PyArrayObject * npy_A)
 // PyList_to_VectorOfMatrixMap
 template <typename TElem>
 std::vector<std::unique_ptr<typename linalg::MatrixMap<TElem>::Type>>
-PyList_to_VectorOfMatrixMap(PyObject * py_L)
-{
+PyList_to_VectorOfMatrixMap(PyObject * py_L) {
   typedef typename linalg::MatrixMap<TElem>::Type MatrixMap;
   std::vector<std::unique_ptr<MatrixMap>> v;
   Py_ssize_t l = PyList_GET_SIZE(py_L);
 
-  for (Py_ssize_t i = 0; i < l; ++i)
-  {
+  for (Py_ssize_t i = 0; i < l; ++i) {
     PyArrayObject * npy_A = (PyArrayObject *)PyList_GET_ITEM(py_L, i);
 
     assert(npy_A != nullptr);
@@ -66,14 +62,12 @@ PyList_to_VectorOfMatrixMap(PyObject * py_L)
 // PyList_to_VectorOfVectorMap
 template <typename TElem>
 std::vector<std::unique_ptr<typename linalg::VectorMap<TElem>::Type>>
-PyList_to_VectorOfVectorMap(PyObject * py_L)
-{
+PyList_to_VectorOfVectorMap(PyObject * py_L) {
   typedef typename linalg::VectorMap<TElem>::Type VectorMap;
   std::vector<std::unique_ptr<VectorMap>> v;
   Py_ssize_t l = PyList_GET_SIZE(py_L);
 
-  for (Py_ssize_t i = 0; i < l; ++i)
-  {
+  for (Py_ssize_t i = 0; i < l; ++i) {
     PyArrayObject * npy_A = (PyArrayObject *)PyList_GET_ITEM(py_L, i);
 
     assert(npy_A != nullptr);
@@ -86,8 +80,7 @@ PyList_to_VectorOfVectorMap(PyObject * py_L)
 // ScipyCSRMatrix_to_CSRMatrixMap
 template <typename TElem>
 std::unique_ptr<typename linalg::CSRMatrixMap<TElem>::Type>
-ScipyCSRMatrix_to_CSRMatrixMap(PyObject * py_A)
-{
+ScipyCSRMatrix_to_CSRMatrixMap(PyObject * py_A) {
   typedef typename linalg::CSRMatrixMap<TElem>::Type CSRMatrixMap;
   PyArrayObject * npy_indptr = (PyArrayObject *)PyObject_GetAttrString(
     py_A, "indptr");
