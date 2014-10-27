@@ -14,8 +14,7 @@ namespace linalg {
 
 // Matrix
 template <typename TElem>
-struct Matrix
-{
+struct Matrix {
   typedef Eigen::Matrix<TElem,
                         Eigen::Dynamic, Eigen::Dynamic,
                         Eigen::ColMajor> Type;
@@ -23,8 +22,7 @@ struct Matrix
 
 // Vector
 template <typename TElem>
-struct Vector
-{
+struct Vector {
   typedef Eigen::Matrix<TElem,
                         Eigen::Dynamic, 1,
                         Eigen::ColMajor> Type;
@@ -32,39 +30,34 @@ struct Vector
 
 // MatrixMap
 template <typename TElem>
-struct MatrixMap
-{
+struct MatrixMap {
   typedef Eigen::Map<typename Matrix<TElem>::Type > Type;
 };
 
 // VectorMap
 template <typename TElem>
-struct VectorMap
-{
+struct VectorMap {
   typedef Eigen::Map<typename Vector<TElem>::Type > Type;
 };
 
 // ConstMatrixMap
 template <typename TElem>
-struct ConstMatrixMap
-{
+struct ConstMatrixMap {
   typedef Eigen::Map<const typename Matrix<TElem>::Type > Type;
 };
 
 
 // ConstVectorMap
 template <typename TElem>
-struct ConstVectorMap
-{
+struct ConstVectorMap {
   typedef Eigen::Map<const typename Vector<TElem>::Type > Type;
 };
 
 
 // MatrixArrayAdapter
 template <typename TM>
-class MatrixArrayAdapter
-{
-public:
+class MatrixArrayAdapter {
+ public:
   typedef decltype(((TM * )nullptr)->col(0)) value_type;
   typedef typename TM::Index Index;
 
@@ -72,20 +65,17 @@ public:
     : _m(m)
   {}
 
-  inline auto size() const -> decltype(((TM *)nullptr)->cols())
-  {
+  inline auto size() const -> decltype(((TM *)nullptr)->cols()) {
     return _m->cols();
   }
 
-  inline value_type operator[](Index i) const
-  {
+  inline value_type operator[](Index i) const {
     return _m->col(i);
   }
 
   // TODO "Upgrade" `iterator` to RandomAccessIterator.
-  class iterator : public std::iterator<std::input_iterator_tag, int, int>
-  {
-  public:
+  class iterator : public std::iterator<std::input_iterator_tag, int, int> {
+   public:
     iterator(int i, TM * m)
       : _i(i), _m(m)
     {}
@@ -94,46 +84,39 @@ public:
       : _i(r._i), _m(r._m)
     {}
 
-    inline iterator & operator++()
-    {
+    inline iterator & operator++() {
       ++_i;
       return *this;
     }
 
-    inline iterator & operator++(int)
-    {
+    inline iterator & operator++(int) {
       iterator r(*this);
       operator++();
       return r;
     }
 
-    inline bool operator==(const iterator & r)
-    {
+    inline bool operator==(const iterator & r) {
       return (&_m == &r._m) && (_i == r._i);
     }
 
-    inline bool operator!=(const iterator & r)
-    {
+    inline bool operator!=(const iterator & r) {
       return !operator==(r);
     }
 
-    inline auto operator*() -> decltype(((TM *)nullptr)->col(0))
-    {
+    inline auto operator*() -> decltype(((TM *)nullptr)->col(0)) {
       return _m->col(_i);
     }
 
-  private:
+   private:
     int _i;
     TM * _m;
   };
 
-  iterator begin() const
-  {
+  iterator begin() const {
     return iterator(0, _m);
   }
 
-  iterator end() const
-  {
+  iterator end() const {
     return iterator(_m.cols(), _m);
   }
 
@@ -143,8 +126,7 @@ protected:
 
 // CSRMatrixMap
 template <typename TElem>
-struct CSRMatrixMap
-{
+struct CSRMatrixMap {
   typedef Eigen::MappedSparseMatrix<TElem, Eigen::RowMajor> Type;
 };
 
