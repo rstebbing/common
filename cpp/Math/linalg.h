@@ -95,11 +95,11 @@ class MatrixArrayAdapter {
       return r;
     }
 
-    inline bool operator==(const iterator & r) {
+    inline bool operator==(const iterator & r) const {
       return (&_m == &r._m) && (_i == r._i);
     }
 
-    inline bool operator!=(const iterator & r) {
+    inline bool operator!=(const iterator & r) const {
       return !operator==(r);
     }
 
