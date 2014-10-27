@@ -96,7 +96,7 @@ class MatrixArrayAdapter {
     }
 
     inline bool operator==(const iterator & r) const {
-      return (&_m == &r._m) && (_i == r._i);
+      return (_m == r._m) && (_i == r._i);
     }
 
     inline bool operator!=(const iterator & r) const {
@@ -117,7 +117,7 @@ class MatrixArrayAdapter {
   }
 
   iterator end() const {
-    return iterator(_m.cols(), _m);
+    return iterator(_m->cols(), _m);
   }
 
 protected:
