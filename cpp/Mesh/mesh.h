@@ -18,12 +18,12 @@ namespace mesh {
 template <class MeshBase>
 class Mesh : public MeshBase {
  public:
-  Mesh(const std::vector<int>& cell_array)
+  explicit Mesh(const std::vector<int>& cell_array)
       : MeshBase(cell_array) {
     BuildAdjacencyInformation();
   }
 
-  Mesh(std::vector<int>&& cell_array)
+  explicit Mesh(std::vector<int>&& cell_array)
       : MeshBase(std::move(cell_array)) {
     BuildAdjacencyInformation();
   }

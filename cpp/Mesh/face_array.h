@@ -16,12 +16,12 @@ namespace mesh {
 // FaceArray
 class FaceArray {
  public:
-  FaceArray(const std::vector<int>& cell_array)
+  explicit FaceArray(const std::vector<int>& cell_array)
       : cell_array_(cell_array) {
     SetFaceOffsets();
   }
 
-  FaceArray(std::vector<int>&& cell_array)
+  explicit FaceArray(std::vector<int>&& cell_array)
       : cell_array_(std::move(cell_array)) {
     SetFaceOffsets();
   }

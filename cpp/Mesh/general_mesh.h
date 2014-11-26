@@ -9,15 +9,14 @@
 namespace mesh {
 
 // GeneralMeshBase
-class GeneralMeshBase : public FaceArray
-{
+class GeneralMeshBase : public FaceArray {
  public:
-  GeneralMeshBase(const std::vector<int>& cell_array)
+  explicit GeneralMeshBase(const std::vector<int>& cell_array)
       : FaceArray(cell_array) {
     Initialise();
   }
 
-  GeneralMeshBase(std::vector<int>&& cell_array)
+  explicit GeneralMeshBase(std::vector<int>&& cell_array)
       : FaceArray(std::move(cell_array)) {
     Initialise();
   }
