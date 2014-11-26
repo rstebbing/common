@@ -11,13 +11,9 @@ namespace mesh {
 // GeneralMeshBase
 class GeneralMeshBase : public FaceArray {
  public:
-  explicit GeneralMeshBase(const std::vector<int>& cell_array)
-      : FaceArray(cell_array) {
-    Initialise();
-  }
-
-  explicit GeneralMeshBase(std::vector<int>&& cell_array)
-      : FaceArray(std::move(cell_array)) {
+  template <typename T>
+  explicit GeneralMeshBase(T&& cell_array)
+      : FaceArray(std::forward<T>(cell_array)) {
     Initialise();
   }
 

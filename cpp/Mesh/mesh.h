@@ -18,13 +18,9 @@ namespace mesh {
 template <class MeshBase>
 class Mesh : public MeshBase {
  public:
-  explicit Mesh(const std::vector<int>& cell_array)
-      : MeshBase(cell_array) {
-    BuildAdjacencyInformation();
-  }
-
-  explicit Mesh(std::vector<int>&& cell_array)
-      : MeshBase(std::move(cell_array)) {
+  template <typename T>
+  explicit Mesh(T&& cell_array)
+      : MeshBase(std::forward<T>(cell_array)) {
     BuildAdjacencyInformation();
   }
 
