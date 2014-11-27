@@ -128,6 +128,45 @@ struct CSRMatrixMap {
   typedef Eigen::MappedSparseMatrix<TElem, Eigen::RowMajor> Type;
 };
 
+// MatrixOfColumnPointers
+template <typename Scalar>
+class MatrixOfColumnPointers {
+ public:
+   typedef Eigen::DenseIndex Index;
+
+   MatrixOfColumnPointers(const Scalar* const* X, Index rows, Index cols)
+    : X_(X), rows_(rows), cols_(cols)
+  {}
+
+  inline Index rows() const {
+    return rows_;
+  }
+  inline Index cols() const {
+    return cols_;
+  }
+  inline const Scalar& operator()(Index i, Index j) const {
+    return X_[j][i];
+  }
+
+  template <typename Y, typename R>
+  void MultiplyVector(const Y& y, R* r) const {
+    assert(cols() == y.size());
+    r->resize(rows());
+
+    std::fill(r->data(), r->data() + rows(), Scalar(0));
+    for (Index j = 0; j < cols(); ++j) {
+      for (Index i = 0; i < rows(); ++i) {
+        (*r)[i] += (*this)(i, j) * y[j];
+      }
+    }
+  }
+
+ private:
+  const Scalar* const* const X_;
+  const Index rows_;
+  const Index cols_;
+};
+
 } // namespace linalg
 
 #endif // MATH_LINALG_H
