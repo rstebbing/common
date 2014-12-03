@@ -1,4 +1,10 @@
-// general_mesh.h
+////////////////////////////////////////////
+// File: general_mesh.h                   //
+// Copyright Richard Stebbing 2014.       //
+// Distributed under the MIT License.     //
+// (See accompany file LICENSE or copy at //
+//  http://opensource.org/licenses/MIT)   //
+////////////////////////////////////////////
 #ifndef MESH_GENERAL_MESH_H
 #define MESH_GENERAL_MESH_H
 

@@ -1,4 +1,10 @@
-// modulo.h
+////////////////////////////////////////////
+// File: modulo.h                         //
+// Copyright Richard Stebbing 2014.       //
+// Distributed under the MIT License.     //
+// (See accompany file LICENSE or copy at //
+//  http://opensource.org/licenses/MIT)   //
+////////////////////////////////////////////
 #ifndef MATH_MODULO_H
 #define MATH_MODULO_H
 

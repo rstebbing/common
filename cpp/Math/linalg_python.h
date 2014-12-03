@@ -1,4 +1,10 @@
-// linalg_python.h
+////////////////////////////////////////////
+// File: linalg_python.h                  //
+// Copyright Richard Stebbing 2014.       //
+// Distributed under the MIT License.     //
+// (See accompany file LICENSE or copy at //
+//  http://opensource.org/licenses/MIT)   //
+////////////////////////////////////////////
 #ifndef MATH_LINALG_PYTHON_H
 #define MATH_LINALG_PYTHON_H
 

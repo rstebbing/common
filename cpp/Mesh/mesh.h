@@ -1,4 +1,10 @@
-// mesh.h
+////////////////////////////////////////////
+// File: mesh.h                           //
+// Copyright Richard Stebbing 2014.       //
+// Distributed under the MIT License.     //
+// (See accompany file LICENSE or copy at //
+//  http://opensource.org/licenses/MIT)   //
+////////////////////////////////////////////
 #ifndef MESH_MESH_H
 #define MESH_MESH_H
 
