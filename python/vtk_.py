@@ -187,3 +187,39 @@ def renderer(*actors):
     iren._locals = locals()
 
     return ren, iren
+
+# KeyPressCallbackStyle
+class KeyPressCallbackStyle(object):
+    def __init__(self):
+        self.KeyPressActivationOff()
+        self.AddObserver('KeyPressEvent', self.OnKeyPress)
+        self._callbacks = {}
+
+    def add_callback(self, key, function):
+        self._callbacks.setdefault(key, []).append(function)
+
+    def on_key_press(self, key):
+        for f in self._callbacks.get(key, []):
+            f()
+
+        for f in self._callbacks.get(None, []):
+            f(key)
+
+        vtk.vtkInteractorStyleTrackballCamera.OnKeyPress(self)
+
+    def OnKeyPress(self, obj, event):
+        rwi = self.GetInteractor()
+        key = rwi.GetKeySym()
+        return self.on_key_press(key)
+
+# _InteractorStyle_factory
+def _InteractorStyle_factory(new_class):
+    def make(base_class):
+        return type(base_class)(new_class.__name__,
+                                (base_class,),
+                                dict(new_class.__dict__))
+    make.func_name == 'make_%s' % new_class.__name__
+    return make
+
+# make_KeyPressCallbackStyle
+make_KeyPressCallbackStyle = _InteractorStyle_factory(KeyPressCallbackStyle)
