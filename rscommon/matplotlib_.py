@@ -9,8 +9,8 @@
 # Imports
 from matplotlib import ticker
 
-# label_axis
-def label_axis(ax, x_or_y, axis_labels, flip, **props):
+# set_axis_ticks
+def set_axis_ticks(ax, x_or_y, axis_labels, flip, **props):
     axis_ticks = range(0, len(axis_labels))
     axis = getattr(ax, '%saxis' % x_or_y)
     axis.set_major_locator(ticker.FixedLocator(axis_ticks))
@@ -25,10 +25,10 @@ def label_axis(ax, x_or_y, axis_labels, flip, **props):
     if props:
         plt.setp(axis.get_majorticklabels(), **props)
 
-# label_xaxis
-def label_xaxis(ax, xaxis_labels, flip=False, **props):
-    label_axis(ax, 'x', xaxis_labels, flip, **props)
+# set_xaxis_ticks
+def set_xaxis_ticks(ax, xaxis_labels, flip=False, **props):
+    set_axis_ticks(ax, 'x', xaxis_labels, flip, **props)
 
-# label_yaxis
-def label_yaxis(ax, yaxis_labels, flip=False, **props):
-    label_axis(ax, 'y', yaxis_labels, flip, **props)
+# set_yaxis_ticks
+def set_yaxis_ticks(ax, yaxis_labels, flip=False, **props):
+    set_axis_ticks(ax, 'y', yaxis_labels, flip, **props)
