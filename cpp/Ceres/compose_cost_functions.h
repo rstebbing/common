@@ -45,7 +45,8 @@ namespace ceres_utility {
       }
     }
 
-    void AddInputCostFunction(const CostFunction* f, const std::vector<double*> p,
+    void AddInputCostFunction(const CostFunction* f,
+                              const std::vector<double*> p,
                               bool own_f=true) {
       // Get the indices into local `x` for each parameter block for `f`.
       auto& parameter_block_sizes = f->parameter_block_sizes();
@@ -125,7 +126,8 @@ namespace ceres_utility {
       is_finalised_ = true;
     }
 
-    virtual bool Evaluate(const double * const* x, double* r, double** J) const {
+    virtual bool Evaluate(const double* const* x, double* r,
+                          double** J) const {
       CHECK_EQ(is_finalised_, true);
 
       // Allocate `g_x_data` and `g_x`, and set pointers in `g_x`.
@@ -133,9 +135,10 @@ namespace ceres_utility {
       const int num_g_parameter_blocks = static_cast<int>(
         g_parameter_block_sizes.size());
       DCHECK_EQ(g_parameter_block_sizes.size(), f_.size());
-      const int num_g_parameters = std::accumulate(g_parameter_block_sizes.begin(),
-                                                   g_parameter_block_sizes.end(),
-                                                   0);
+      const int num_g_parameters = std::accumulate(
+        g_parameter_block_sizes.begin(),
+        g_parameter_block_sizes.end(),
+        0);
 
       internal::FixedArray<double> g_x_data(num_g_parameters);
       internal::FixedArray<double*> g_x(num_g_parameter_blocks);
@@ -168,7 +171,8 @@ namespace ceres_utility {
         }
 
         for (auto& t : parameter_block_to_jacobian_block_indices_[i]) {
-          J_i_data_size += std::get<2>(f_[t.first]) * parameter_block_sizes_[i];
+          J_i_data_size += std::get<2>(f_[t.first]) *
+                           parameter_block_sizes_[i];
           req_J_g.insert(t.first);
         }
       }
@@ -289,7 +293,10 @@ namespace ceres_utility {
     const CostFunction* g_;
     bool own_g_;
     bool is_finalised_;
-    std::vector<std::tuple<const CostFunction*, bool, int, std::vector<int>>> f_;
+    std::vector<std::tuple<const CostFunction*,
+                           bool,
+                           int,
+                           std::vector<int>>> f_;
     std::vector<double*> parameter_blocks_;
     std::vector<int> parameter_block_sizes_;
     std::vector<std::vector<std::pair<int, int>>>
