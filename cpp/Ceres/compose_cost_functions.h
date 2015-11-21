@@ -46,7 +46,7 @@ namespace ceres_utility {
     }
 
     void AddInputCostFunction(const CostFunction* f,
-                              const std::vector<double*> p,
+                              const std::vector<double*>& p,
                               bool own_f=true) {
       // Get the indices into local `x` for each parameter block for `f`.
       auto& parameter_block_sizes = f->parameter_block_sizes();
