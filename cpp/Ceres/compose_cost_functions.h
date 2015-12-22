@@ -50,7 +50,7 @@ namespace ceres_utility {
                               bool own_f=true) {
       // Get the indices into local `x` for each parameter block for `f`.
       auto& parameter_block_sizes = f->parameter_block_sizes();
-      vector<int> x_indices;
+      std::vector<int> x_indices;
       for (int i = 0; i < static_cast<int>(p.size()); ++i) {
         x_indices.push_back(AddInternalParameterBlock(
           p[i],
@@ -64,7 +64,7 @@ namespace ceres_utility {
 
     void AddInputParameterBlock(double* p, int block_size) {
       // Single input parameters are treated as identity functions.
-      vector<int> x_indices(1);
+      std::vector<int> x_indices(1);
       x_indices[0] = AddInternalParameterBlock(p, block_size);
 
       // Save.
