@@ -12,6 +12,13 @@ from itertools_ import pairwise
 
 import vtk
 
+# _SetInput_or_SetInputData
+def _SetInput_or_SetInputData(obj, poly_data):
+    if hasattr(obj, 'SetInput'):
+        return obj.SetInput(poly_data)
+    else:
+        return obj.SetInputData(poly_data)
+
 # make_vtkPoints
 def make_vtkPoints(P):
     P = np.atleast_2d(P)
@@ -46,7 +53,7 @@ def tubes(T, P, *args):
     poly_data.SetLines(make_vtkCellArray(T))
 
     tube = vtk.vtkTubeFilter()
-    tube.SetInput(poly_data)
+    _SetInput_or_SetInputData(tube, poly_data)
     _apply_methods(tube, *args)
 
     mapper = vtk.vtkPolyDataMapper()
@@ -77,7 +84,7 @@ def points(P, *args):
     _apply_methods(sphere, *args)
 
     glyph = vtk.vtkGlyph3D()
-    glyph.SetInput(poly_data)
+    _SetInput_or_SetInputData(glyph, poly_data)
     glyph.SetSourceConnection(sphere.GetOutputPort())
 
     mapper = vtk.vtkPolyDataMapper()
@@ -143,7 +150,7 @@ def surface(T, P, use_normals=True,
         if hasattr(from_, 'GetOutputPort'):
             to.SetInputConnection(from_.GetOutputPort())
         else:
-            to.SetInput(from_)
+            _SetInput_or_SetInputData(to, from_)
         pipeline.append(to)
 
     if colour_faces_filter is not None:
