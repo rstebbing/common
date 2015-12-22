@@ -1,5 +1,5 @@
 ////////////////////////////////////////////
-// File: composed_cost_function.cc        //
+// File: composed_cost_function.ccp       //
 // Copyright Richard Stebbing 2015.       //
 // Distributed under the MIT License.     //
 // (See accompany file LICENSE or copy at //
